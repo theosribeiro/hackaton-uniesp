@@ -2,14 +2,14 @@ package com.hackaton_uniesp.hackaton.marjosports.entity;
 
 import com.hackaton_uniesp.hackaton.utils.enums.Enums.TipoUsuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class UserEntity {
 
     @Id

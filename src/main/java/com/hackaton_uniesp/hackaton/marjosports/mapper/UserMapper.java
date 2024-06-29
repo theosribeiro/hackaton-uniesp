@@ -15,7 +15,15 @@ public interface UserMapper {
     default UserDTO toDTO(UserEntity entity) {
         if (Objects.isNull(entity))
             return null;
-        return null;
+        return UserDTO.builder()
+                .id(entity.getId())
+                .cpf(entity.getCpf())
+                .email(entity.getEmail())
+                .nome(entity.getNome())
+                .senha(entity.getSenha())
+                .login(entity.getLogin())
+                .tipoUsuario(entity.getTipoUsuario())
+                .build();
     }
 
     default UserEntity toEntity(UserDTO dto){

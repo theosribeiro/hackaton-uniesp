@@ -34,4 +34,22 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Erro ao salvar o Usuário");
         }
     }
+
+    @Override
+    public UserEntity login(String login, String senha) {
+        try {
+            log.info("Logando Usuário");
+            UserEntity user = repository.findByLogin(login).orElseThrow(() -> {
+                log.error("Usuario nao encontrado");
+                return new RuntimeException("Usuário não encontrado");
+            });
+
+            if (user.getSenha().equals(senha))
+                return user;
+            return null;
+        } catch (Exception e) {
+            log.error("Erro ao realizar o login do Usuário", e);
+            throw new RuntimeException("Erro ao realizar o login do Usuário");
+        }
+    }
 }
