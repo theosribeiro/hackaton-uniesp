@@ -46,10 +46,13 @@ public class UserServiceImpl implements UserService {
 
             if (user.getSenha().equals(senha))
                 return user;
-            return null;
+            else {
+                log.error("Senha invalida");
+                throw new RuntimeException("Usuário não encontrado");
+            }
         } catch (Exception e) {
             log.error("Erro ao realizar o login do Usuário", e);
-            throw new RuntimeException("Erro ao realizar o login do Usuário");
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

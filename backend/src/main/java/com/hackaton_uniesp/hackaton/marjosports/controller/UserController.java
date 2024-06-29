@@ -19,23 +19,21 @@ import static java.lang.String.format;
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
-    private final UserService userService;
+    private final UserService service;
     private final UserMapper mapper;
 
     @PostMapping("/save")
     public ResponseEntity<String> saveUser(@RequestBody UserDTO user) {
         log.info("Iniciando persistência do usuário");
-        userService.saveUser(user);
+        service.saveUser(user);
         return ResponseEntity.ok("Usuário criado com sucesso!");
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestParam("login") String login,
-                                         @RequestParam("senha") String senha
-    ) {
-        log.info(format("Iniciando Login do usuário, login %s", login));
-        UserEntity user = userService.login(login, senha);
-        return ResponseEntity.ok(mapper.toDTO(user));
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO user) {
+        log.info(format("Iniciando Login do usuário, login %s", user.getLogin()));
+        UserEntity userEntity = service.login(user.getLogin(), user.getSenha());
+        return ResponseEntity.ok(mapper.toDTO(userEntity));
     }
 
 
